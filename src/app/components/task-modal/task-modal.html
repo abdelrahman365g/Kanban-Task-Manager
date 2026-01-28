@@ -1,8 +1,12 @@
 @if (show) {
   <div
     class="task-modal position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
+    (click)="closeModal()"
   >
-    <div class="modal-content bg-white rounded-4 shadow p-4 position-relative">
+    <div
+      class="modal-content bg-white rounded-4 shadow p-4 position-relative"
+      (click)="$event.stopPropagation()"
+    >
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h5 class="d-flex align-items-center gap-2 m-0">
           <span>{{ task ? "Edit Task" : "Create New Task" }}</span>

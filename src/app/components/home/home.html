@@ -1,38 +1,41 @@
-<div class="container py-5">
-  <div class="row row-cols-1 row-cols-md-3 g-4">
-    <div class="col">
-      <app-column
-        columnName="Todo"
-        columnStatus="todo"
-        [columnTasks]="todoTasks"
-        (moveTask)="updateTaskStatus($event)"
-        (editTask)="openEditTask($event)"
-        (deleteTask)="deleteTask($event)"
-      >
-      </app-column>
-    </div>
-    <div class="co">
-      <app-column
-        columnName="In Progress"
-        columnStatus="in-progress"
-        [columnTasks]="inProgressTasks"
-        (moveTask)="updateTaskStatus($event)"
-        (editTask)="openEditTask($event)"
-        (deleteTask)="deleteTask($event)"
-      >
-      </app-column>
-    </div>
+<div class="bg-light min-vh-100">
+  <app-header (open)="openNewTask()"></app-header>
+  <div class="container py-5">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col">
+        <app-column
+          columnName="Todo"
+          columnStatus="todo"
+          [columnTasks]="todoTasks"
+          (moveTask)="updateTaskStatus($event)"
+          (editTask)="openEditTask($event)"
+          (deleteTask)="deleteTask($event)"
+        >
+        </app-column>
+      </div>
+      <div class="co">
+        <app-column
+          columnName="In Progress"
+          columnStatus="in-progress"
+          [columnTasks]="inProgressTasks"
+          (moveTask)="updateTaskStatus($event)"
+          (editTask)="openEditTask($event)"
+          (deleteTask)="deleteTask($event)"
+        >
+        </app-column>
+      </div>
 
-    <div class="col">
-      <app-column
-        columnName="Completed"
-        columnStatus="completed"
-        [columnTasks]="completedTasks"
-        (moveTask)="updateTaskStatus($event)"
-        (editTask)="openEditTask($event)"
-        (deleteTask)="deleteTask($event)"
-      >
-      </app-column>
+      <div class="col">
+        <app-column
+          columnName="Completed"
+          columnStatus="completed"
+          [columnTasks]="completedTasks"
+          (moveTask)="updateTaskStatus($event)"
+          (editTask)="openEditTask($event)"
+          (deleteTask)="deleteTask($event)"
+        >
+        </app-column>
+      </div>
     </div>
   </div>
 </div>

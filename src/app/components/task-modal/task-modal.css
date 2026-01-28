@@ -1,3 +1,6 @@
+.task-modal{
+  z-index: 100;
+}
 .task-modal .modal-content {
     max-width: 600px;
 }

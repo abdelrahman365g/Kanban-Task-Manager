@@ -1,19 +1,13 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { Header } from './components/header/header';
-import { Home } from "./components/home/home";
+import { RouterOutlet } from '@angular/router';
 
 
 @Component({
   selector: 'app-root',
-  imports: [ Header, Home],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
   protected title = 'Kanban';
-  @ViewChild('home') homeComponent! : Home ;
-
-  openTaskModal(){
-    this.homeComponent.openNewTask();
-  }
 }

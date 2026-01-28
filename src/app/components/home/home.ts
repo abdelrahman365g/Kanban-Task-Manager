@@ -4,10 +4,11 @@ import { TaskPriority } from '../../models/task-priority.enum';
 import { Column } from '../column/column';
 import { TaskStatus } from '../../models/task-status.type';
 import { TaskModal } from '../task-modal/task-modal';
+import { Header } from '../header/header';
 
 @Component({
   selector: 'app-home',
-  imports: [Column, TaskModal],
+  imports: [Column, TaskModal , Header],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -25,7 +26,7 @@ export class Home implements OnInit {
         dueDate: t.dueDate ? new Date(t.dueDate) : null,
         createdAt: new Date(t.createdAt),
       }));
-      this.lastVisibleId = this.tasks.length;
+      this.lastVisibleId = this.tasks.length >0? Math.max(...this.tasks.map(t=> Number(t.visibleId.replace("#",""))))+1 : 1;
     }
   }
 
