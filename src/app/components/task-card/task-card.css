@@ -1,0 +1,127 @@
+.task-card {
+  border-radius: 1rem;
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s;
+}
+.task-card:hover {
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.08);
+}
+.task-actions {
+  opacity: 0;
+  transition: opacity .3s;
+}
+.task-card:hover .task-actions {
+  opacity: 1;
+}
+.btn-icon {
+  background-color: transparent;
+  color: #90a1b9;
+  width: 28px;
+  height: 28px;
+  transition: all .3s;
+}
+.btn-edit:hover{
+  background-color: #eef2ff;
+  color: #615fff;
+  opacity: 1;
+}
+.btn-delete:hover{
+  background-color: #fef2f2;
+  color: #fb2c36;
+  opacity: 1 !important;
+}
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #cbd5e1;
+}
+.task--in-progress .status-dot { background-color: #f59e0b; }
+.task--completed .status-dot { background-color: #10b981; }
+.task-title {
+  font-weight: 600;
+}
+.task--completed .task-title {
+  text-decoration: line-through;
+  color: #94a3b8;
+}
+.badge-done{
+  background-color: #d0fae5;
+  color: #009966;
+}
+.priority-badge {
+  font-size: 10px;
+  padding: 6px 12px;
+}
+.priority-badge .dot {
+  width: 6px;
+  height: 6px;
+}
+.priority--low {
+  background-color: #eff6ff;
+  color: #2563eb;
+}
+.priority--low .dot { background-color: #2563eb; }
+.priority--medium {
+  background-color: #fffbeb;
+  color: #d97706;
+}
+.priority--medium .dot { background-color: #d97706; }
+.priority--high {
+  background-color: #fef2f2;
+  color: #dc2626;
+}
+.priority--high .dot { background-color: #dc2626; }
+.task--overdue {
+  border-color: #fecaca;
+  box-shadow: 0 0 0 2px #fee2e2;
+}
+.badge-overdue {
+  background-color: #fee2e2;
+  color: #dc2626;
+  font-size: 10px;
+}
+.task-meta {
+  font-size: 12px;
+  color: #94a3b8;
+  border-bottom: 1px solid #e5e7eb;
+}
+.task--overdue .meta-item:first-child {
+  color: #dc2626;
+}
+.btn-status {
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: .5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all .15s ease;
+}
+.btn-status:hover {
+  transform: scale(1.05);
+}
+.btn-status:active {
+  transform: scale(.95);
+}
+.btn-todo {
+  color: #45556c;
+}
+.btn-todo:hover {
+  background-color: #e2e8f0;
+  color: #314158;
+}
+.btn-progress {
+  background-color: #fef3c6;
+  color: #d97706;
+}
+.btn-progress:hover {
+  background-color: #fee685;
+}
+.btn-complete {
+  background-color: #d1fae5;
+  color: #059669;
+}
+.btn-complete:hover {
+  background-color: #a7f3d0;
+}

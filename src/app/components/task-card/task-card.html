@@ -1,0 +1,90 @@
+<div
+  [class]="'card task-card task--' + task.status + ' task--' + task.priority"
+>
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-start mb-2">
+      <div class="d-flex align-items-center gap-2">
+        <span class="status-dot"></span>
+        <small class="task-id">{{ task.visibleId }}</small>
+      </div>
+      <div class="task-actions">
+        <button
+          class="btn-icon rounded-3 btn-edit"
+          (click)="edit.emit(task.id)"
+        >
+          <i class="fa-solid fa-pen"></i>
+        </button>
+        <button
+          class="btn-icon rounded-3 btn-delete"
+          (click)="delete.emit(task.id)"
+        >
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
+      </div>
+    </div>
+    <h6 class="task-title">{{ task.name }}</h6>
+    @if (task.description) {
+      <p class="task-desc text-muted">{{ task.description }}</p>
+    }
+    <div class="d-flex flex-wrap gap-2 mb-3">
+      <span
+        class="badge priority-badge priority--{{
+          task.priority
+        }} d-flex gap-2 align-items-center rounded-4 fw-bolds"
+      >
+        <span class="dot rounded-circle"></span>
+        {{ task.priority.toUpperCase() }}
+      </span>
+      @if (task.status === "completed") {
+        <span class="badge badge-done rounded-4">
+          <i class="fa-solid fa-check"></i> Done
+        </span>
+      } @else if (isOverdue(task)) {
+        <span
+          class="badge badge-overdue d-flex align-items-center rounded-4 fw-bold"
+        >
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          Overdue
+        </span>
+      }
+    </div>
+    <div class="task-meta d-flex gap-3 pb-2">
+      @if (task.dueDate) {
+        <div
+          class="meta-item"
+          [class.text-danger]="isOverdue(task) && task.status !== 'completed'"
+        >
+          <i class="fa-regular fa-calendar"></i>
+          <span>{{ formatDate(task.dueDate) }}</span>
+        </div>
+      }
+      <div class="meta-item">
+        <i class="fa-regular fa-clock"></i>
+        <span>{{ calculateTime(task.createdAt) }}</span>
+      </div>
+    </div>
+    <div class="d-flex flex-wrap gap-2 mt-3">
+      @if (task.status !== "todo") {
+        <button class="btn-status btn-todo px-2 py-2" (click)="moveTo('todo')">
+          <i class="fa-solid fa-arrow-rotate-left"></i> To Do
+        </button>
+      }
+      @if (task.status !== "in-progress") {
+        <button
+          class="btn-status btn-progress px-2 py-2"
+          (click)="moveTo('in-progress')"
+        >
+          <i class="fa-solid fa-play"></i> Start
+        </button>
+      }
+      @if (task.status !== "completed") {
+        <button
+          class="btn-status btn-complete py-2 px-2"
+          (click)="moveTo('completed')"
+        >
+          <i class="fa-solid fa-check"></i> Complete
+        </button>
+      }
+    </div>
+  </div>
+</div>

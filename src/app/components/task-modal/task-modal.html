@@ -1,0 +1,103 @@
+@if (show) {
+  <div
+    class="task-modal position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
+  >
+    <div class="modal-content bg-white rounded-4 shadow p-4 position-relative">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="d-flex align-items-center gap-2 m-0">
+          <span>{{ task ? "Edit Task" : "Create New Task" }}</span>
+        </h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+
+      <form [formGroup]="taskForm" (submit)="submitForm()">
+        <div class="mb-3">
+          <label class="form-label d-flex align-items-center gap-2">
+            <i class="fa-solid fa-heading text-body-tertiary"></i>
+            Task Title <span class="text-danger">*</span>
+          </label>
+          <input
+            type="text"
+            class="form-control px-3 py-2 rounded-3"
+            formControlName="taskName"
+            placeholder="What needs to be done?"
+            required
+          />
+          @if (taskForm.get("taskName")?.errors?.["required"]) {
+            <small class="form-error text-danger mt-2">
+              Task title is required
+            </small>
+          }
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-sm-6">
+            <label class="form-label d-flex align-items-center gap-2">
+              <i class="fa-solid fa-flag text-body-tertiary"></i>
+              Priority
+            </label>
+            <select
+              class="form-select rounded-3"
+              formControlName="taskPriority"
+            >
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+          <div class="col-sm-6">
+            <label class="form-label d-flex align-items-center gap-2">
+              <i class="fa-regular fa-calendar text-body-tertiary"></i> Due Date
+            </label>
+            <input
+              type="date"
+              class="form-control rounded-3"
+              formControlName="taskDueDate"
+            />
+            @if (taskForm.get("taskDueDate")?.errors?.["pastDate"]) {
+              <small class="form-error text-danger mt-2">
+                Due date must be in the future
+              </small>
+            }
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label d-flex align-items-center gap-2">
+            <i class="fa-solid fa-align-left text-body-tertiary"></i>
+            Description
+          </label>
+          <textarea
+            formControlName="taskDescription"
+            class="form-control rounded-3"
+            rows="3"
+            maxlength="500"
+            placeholder="Add more details about this task..."
+          ></textarea>
+          <div class="d-flex justify-content-between mt-1">
+            <div class="form-error text-danger" id="description-error"></div>
+          </div>
+        </div>
+
+        <div class="d-flex gap-3">
+          <button
+            type="button"
+            class="btn btn-light flex-fill py-2"
+            (click)="closeModal()"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary flex-fill d-flex align-items-center justify-content-center gap-2"
+          >
+            <i class="fa-solid" [class]="task ? 'fa-save' : 'fa-plus'"></i>
+            <span id="submit-btn-text">{{
+              task ? "Save Changes" : "Add Task"
+            }}</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+}

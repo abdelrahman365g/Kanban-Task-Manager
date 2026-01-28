@@ -1,0 +1,45 @@
+<div class="container py-5">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col">
+      <app-column
+        columnName="Todo"
+        columnStatus="todo"
+        [columnTasks]="todoTasks"
+        (moveTask)="updateTaskStatus($event)"
+        (editTask)="openEditTask($event)"
+        (deleteTask)="deleteTask($event)"
+      >
+      </app-column>
+    </div>
+    <div class="co">
+      <app-column
+        columnName="In Progress"
+        columnStatus="in-progress"
+        [columnTasks]="inProgressTasks"
+        (moveTask)="updateTaskStatus($event)"
+        (editTask)="openEditTask($event)"
+        (deleteTask)="deleteTask($event)"
+      >
+      </app-column>
+    </div>
+
+    <div class="col">
+      <app-column
+        columnName="Completed"
+        columnStatus="completed"
+        [columnTasks]="completedTasks"
+        (moveTask)="updateTaskStatus($event)"
+        (editTask)="openEditTask($event)"
+        (deleteTask)="deleteTask($event)"
+      >
+      </app-column>
+    </div>
+  </div>
+</div>
+<app-task-modal
+  [show]="showModal"
+  [task]="editingTask"
+  [lastVisibleId]="lastVisibleId"
+  (save)="saveTask($event)"
+  (close)="closeModal()"
+></app-task-modal>

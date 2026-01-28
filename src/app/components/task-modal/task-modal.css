@@ -1,0 +1,23 @@
+.task-modal .modal-content {
+    max-width: 600px;
+}
+.task-modal .form-control:focus,
+.task-modal .form-select:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 .2rem rgba(99,102,241,.25);
+}
+.text-indigo {
+  color: #6366f1;
+}
+.btn-primary {
+  background-color: #6366f1;
+}
+.btn-primary:hover {
+  background-color: #4f46e5;
+}
+.task-modal {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.form-error{
+  font-size: 12px;
+}

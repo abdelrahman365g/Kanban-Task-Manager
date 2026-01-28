@@ -1,0 +1,9 @@
+header{
+    background-image: linear-gradient(to right , #4f39f6,#9810fa);
+}
+.add-task-btn{
+    background-color: #ffffff33;
+}
+.add-task-btn:hover{
+    background-color: #ffffff4d;
+}

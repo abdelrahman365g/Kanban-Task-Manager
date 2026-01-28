@@ -1,0 +1,30 @@
+.column {
+  min-height: 600px;
+}
+.icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.125rem;
+}
+.icon-todo-bg {
+  background-color: #f1f5f9;
+}
+.icon-todo {
+  color: #64748b;
+}
+.icon-in-progress-bg {
+  background-color: #fffbeb;
+}
+.icon-in-progress {
+  color: #f59e0b;
+}
+.icon-completed-bg {
+  background-color: #ecfdf5;
+}
+.icon-completed {
+  color: #10b981;
+}
