@@ -92,6 +92,7 @@ export class Home implements OnInit {
   }
   closeModal() {
     this.showModal = false;
+    this.editingTask = undefined ;
   }
   saveTasksToStorage() {
     localStorage.setItem('tasks', JSON.stringify(this.tasks));

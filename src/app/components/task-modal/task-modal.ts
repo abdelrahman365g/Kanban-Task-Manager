@@ -1,5 +1,23 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { TaskInterface } from '../../models/task.interface';
 import { TaskPriority } from '../../models/task-priority.enum';
 
@@ -9,70 +27,85 @@ import { TaskPriority } from '../../models/task-priority.enum';
   templateUrl: './task-modal.html',
   styleUrl: './task-modal.css',
 })
-export class TaskModal implements OnInit , OnChanges {
-  @Input() show:boolean = false ;
-  @Input() task?:TaskInterface ;
-  @Input() lastVisibleId! : number;
+export class TaskModal implements OnInit, OnChanges {
+  @Input() show: boolean = false;
+  @Input() task?: TaskInterface;
+  @Input() lastVisibleId!: number;
   @Output() close = new EventEmitter<void>();
-  @Output() save = new EventEmitter<TaskInterface>() ;
-  taskForm!: FormGroup ;
+  @Output() save = new EventEmitter<TaskInterface>();
+  taskForm!: FormGroup;
+  @ViewChild('nameInput') nameInput!: ElementRef;
 
-  ngOnInit(){
+  ngOnInit() {
     this.initForm();
   }
-    ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges) {
     if (changes['task'] && this.taskForm) {
       this.taskForm.patchValue({
         taskName: this.task?.name || '',
         taskDescription: this.task?.description || '',
         taskPriority: this.task?.priority || TaskPriority.Medium,
-        taskDueDate: this.task?.dueDate ? this.task.dueDate.toISOString().split('T')[0] : ''
+        taskDueDate: this.task?.dueDate
+          ? this.task.dueDate.toISOString().split('T')[0]
+          : '',
       });
-    }else if(changes['show'] && this.show){
+    } else if (changes['show'] && this.show) {
+      setTimeout(() => {
+        this.nameInput.nativeElement.focus();
+      } , 0);
       this.initForm();
     }
   }
 
-  initForm(){
+  initForm() {
     this.taskForm = new FormGroup({
-    taskName : new FormControl('' , { validators: [Validators.required] }),
-    taskDescription : new FormControl(''),
-    taskPriority : new FormControl(TaskPriority.Medium ),
-    taskDueDate : new FormControl('' , { validators: [this.futureDateValidator()] })
-  })
+      taskName: new FormControl(this.task?.name || '', {
+        validators: [Validators.required],
+      }),
+      taskDescription: new FormControl(this.task?.description || ''),
+      taskPriority: new FormControl(this.task?.priority || TaskPriority.Medium),
+      taskDueDate: new FormControl(
+        this.task?.dueDate ? this.task.dueDate.toISOString().split('T')[0] : '',
+        {
+          validators: [this.futureDateValidator()],
+        },
+      ),
+    });
   }
-  submitForm(){
+  submitForm() {
     if (this.taskForm.invalid) return;
     const formData = this.taskForm.value;
-    const newTask : TaskInterface = {
+    const newTask: TaskInterface = {
       id: this.task?.id || Date.now(),
-      visibleId: this.task?.visibleId || `#${this.lastVisibleId.toString().padStart(3, '0')}`,
+      visibleId:
+        this.task?.visibleId ||
+        `#${this.lastVisibleId.toString().padStart(3, '0')}`,
       name: formData.taskName,
       description: formData.taskDescription,
       dueDate: formData.taskDueDate ? new Date(formData.taskDueDate) : null,
       createdAt: this.task?.createdAt || new Date(),
       priority: formData.taskPriority,
       status: this.task?.status || 'todo',
-    }
+    };
     this.save.emit(newTask);
     this.close.emit();
   }
-  closeModal(){
+  closeModal() {
     this.close.emit();
   }
   futureDateValidator(): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    if (!control.value) return null; 
-    
-    const inputDate = new Date(control.value);
-    const now = new Date();
-    now.setHours(0, 0, 0, 0);
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) return null;
 
-    if (inputDate < now) {
-      return { pastDate: true }; 
-    }
+      const inputDate = new Date(control.value);
+      const now = new Date();
+      now.setHours(0, 0, 0, 0);
 
-    return null;
-  };
-}
+      if (inputDate < now) {
+        return { pastDate: true };
+      }
+
+      return null;
+    };
+  }
 }
